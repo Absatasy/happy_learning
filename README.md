@@ -8,11 +8,11 @@
 
 
 ## 使用方法：
-下载happy_learning.py运行即可；
+下载happy_learning.py,修改第318行更改为你的夜神模拟器的启动目录，运行即可；
 不能运行的请看下一条！！
 
 ##  本程序通过python3+appium+夜神模拟器来完成操作
-环境配置请一定参照“[环境配置.txt](https://github.com/Kleverx/happy_learning/blob/master/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.txt)”执行。
+环境配置请一定参照“[环境配置.txt](./环境配置.txt)”执行。
 
 
 ## 📃免责声明
@@ -24,7 +24,7 @@ happy_learning为本人python学习交流的开源非营利项目，仅作为程
 ## 下步方向：
 1. 每日答题、挑战答题；（主要是python的数据库操作和excel查询操作还没学会。。。）
     * 1.1 从app界面通过xpath规则获取题干，(可完成)
-    * 1.2 去[学习强国题库.xlsx](https://github.com/Kleverx/happy_learning/blob/master/%E5%AD%A6%E4%B9%A0%E5%BC%BA%E5%9B%BD%E9%A2%98%E5%BA%93.xlsx)查询，             （不会）
+    * 1.2 去[学习强国题库.xlsx](./学习强国题库.xlsx)查询，             （不会）
         * 1.2-1 得到答案，回到界面点击，  (可完成)
         * 1.2-2 题库中没有，去百度搜索，按照答案出现次数选择， (可完成)
             * 判断是否答对
