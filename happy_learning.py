@@ -2,7 +2,7 @@
 """
 Author:  KleverX      智能、安全、高效、省心
 Create:  2019.07.27 08:20
-Edit:    2019.08.22 21:00
+Edit:    2019.08.23 12:00
 功能实现：每日全自动文章、视频、时长、分享等一套29分
 """
 
@@ -17,14 +17,11 @@ from appium import webdriver
 
 
 # 全局参数
-
 p = 30  # p阅读文章分数，p+5视听，p+10文章时长，p+15视听时长，p+45收藏，p+50分享，p+55评论   【未实现 p+20每日答题，p+35挑战答题】
-#  "经济，健康，文化，用典，用典，体育，军事，科技，人物，理论,党史 第0个点都不是文章， 十九大时间篇幅太大，快闪有问题
 article_bar = ["人事", "国际", "法纪", "要闻", "新思想", "发布", "实践", "综合", '教育',
                "健康", "纪实", "时评", "思考", "旅游", '传播中国']
-# appium模块set_key('中文')有问题,所以评论就都是英文了。。。放心，最后会删掉。
-comments = ["ttttttttttttt.", "aaaaaaaaaaaa.", "dddddddddddddddd.",
-            "eeeeeeeeeeee.", "rrrrrrrrrrr.", "yyyyyyyyyyyyyy."]
+comments = ["好好学习，天天向上。", "学海无涯苦作舟", "这个你可以自己修改", "多加一点评论。"
+            "大家的评论最好不要一样。", "要不然系统发现你经常评论一样的。", "自己用个记事本保存下来。"]
 path = os.getcwd() + '/article_bar_index.txt'
 
 
@@ -37,17 +34,11 @@ def init_driver():
         'appActivity': 'com.alibaba.android.rimet.biz.SplashActivity',
         'noSign': True,
         'noReset': True,
-        'newCommandTimeout': 3600
+        'newCommandTimeout': 3600,
+        "unicodeKeyboard": True,
+        "resetKeyboard": True
     }
     return desired_caps
-
-
-def connect_devices():
-    print('正在链接模拟器/设备……')
-    nox_path = r'E:\00Develop\Nox\bin'
-    os.chdir(nox_path)
-    os.system('nox_adb.exe connect 127.0.0.1:62001')
-    sleep(2)
 
 
 def devices_size():
@@ -118,11 +109,11 @@ def study_time(n, t):
         sleep(6)
         scroll(0)
         sleep(7)
-        print(n + '已学习' + str(13) + '秒;')
+        study_t += 13
+        print(f'{n}已学习{str(study_t)}秒;')
 
 
 def scroll(param):
-    # x轴, y轴位移
     size = devices_size()
     x = size['width']
     y = size['height']
@@ -138,11 +129,9 @@ def click_coordinates(param):
     x = size['width']
     y = size['height']
     half_x = 4 / 5 * x
-    click_list = [3 / 10 * y, 5 / 10 * y, 2 / 3 * y, 17 / 20 * y]
-    print("点击第" + str(param) + "个点。")
+    click_list = [3/10 * y, 5/10 * y, 2/3 * y, 17/20 * y]
+    print(f"点击第{str(param)}个点。")
     sleep(1)
-    while param > 3:
-        param = param - 4
     driver.tap([(half_x, click_list[param])], 110)
     sleep(2)
 
@@ -158,7 +147,7 @@ def cycle_click(pieces, n, t):
         sleep(2)
         if i == 3:
             scroll(1)
-    print(n + "学习结束")
+    print(f'{n}学习结束')
     sleep(2)
 
 
@@ -167,7 +156,7 @@ def choose_channel():
     sleep(2)
     bar = article_bar[bar_index]
     driver.find_element_by_xpath("//android.widget.ImageView[@index=0][@instance=3]").click()
-    print("点击：" + bar)
+    print(f"进入{bar}频道")
     sleep(1)
     b = f'//android.widget.TextView[@text="{bar}"]'
     driver.find_element_by_xpath(b).click()
@@ -231,8 +220,6 @@ def read_time():
         scroll(0)
         get_click(p+11)
         sleep(2)
-        driver.find_element_by_xpath('//android.widget.TextView[@text="要闻"]').click()
-        sleep(2)
         rt = r_score * 2 * 60 + 66
         cycle_click(1, n, rt)
         enter_score_page()
@@ -244,7 +231,6 @@ def read_time():
 
 def media_time():
     msg = get_score(p+15)
-    # n标题
     n = msg[:6]
     m_score = int(msg[-1])
     while m_score > 0:
@@ -277,7 +263,6 @@ def star_share_comment():
         choose_channel()
         for l in range(2):
             click_coordinates(l)
-            # 评论
             if comment > 0:
                 driver.find_element_by_xpath('//android.widget.TextView[@text="欢迎发表你的观点"]').click()
                 sleep(2)
@@ -320,6 +305,12 @@ def auto_study():
     read_time()
     media_time()
     print('今日所有自动学习任务已完成！')
+
+
+def connect_devices():
+    print('正在链接模拟器/设备……')
+    os.system('adb.exe connect 127.0.0.1:62001')
+    sleep(2)
 
 
 if __name__ == '__main__':
