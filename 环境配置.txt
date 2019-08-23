@@ -35,5 +35,5 @@ __首先重要提示__:appium依赖于android环境和java环境以及node.js
    1. 安装夜神模拟器，百度夜神模拟器直接安装即可；
    2. 由于adb版本的不同，会出现appium报错，这里打开sdk安装目录下的\sdk\platform-tools下的adb.exe,把他复制到并覆盖到夜神模拟器下的\Nox\bin adb.exe ,在复制一份改名为nox_adb.exe。确保夜神模拟器的adb版本和sdkadb版本相同
 8. 在夜神模拟器应用商店中下载安装好学习强国并登陆
-9. 下载本项目，将happy_learning.py第349行更改为你的夜神模拟器的启动目录；
+9. 下载本项目，将happy_learning.py第318行更改为你的夜神模拟器的启动目录；
 10. 运行happy_learning.py测试是否正常运行，正常的话将添加windos计划任务为每天固定时间运行即可。
