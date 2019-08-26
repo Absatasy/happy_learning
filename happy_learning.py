@@ -117,9 +117,9 @@ def scroll(param):
     size = devices_size()
     x = size['width']
     y = size['height']
-    x1 = 4 / 5 * x
-    y1 = 8 / 10 * y
-    y2 = [6 / 10 * y, 1 / 10 * y]
+    x1 = 4/5 * x
+    y1 = 8/10 * y
+    y2 = [6/10 * y, 1/10 * y]
     driver.swipe(x1, y1, x1, y2[param], 300)
     sleep(2)
 
@@ -128,7 +128,7 @@ def click_coordinates(param):
     size = devices_size()
     x = size['width']
     y = size['height']
-    half_x = 4 / 5 * x
+    half_x = 4/5 * x
     click_list = [3/10 * y, 5/10 * y, 2/3 * y, 17/20 * y]
     print(f"点击第{str(param)}个点。")
     sleep(1)
@@ -176,9 +176,9 @@ def article_read():
         sleep(2)
         choose_channel()
         cycle_click(pieces, n, r_time)
+        print(f"{n}结束。")
         enter_score_page()
         pieces = int(get_score(p)[-1])
-        print(f"{n}结束。")
     print(f'2.{n}任务已完成！\n', "-" * 32)
     sleep(2)
 
@@ -189,8 +189,8 @@ def video_study():
     pieces = int(msg[-1])
     v_time = 12
     size = devices_size()
-    x1 = 97 / 100 * size['width']
-    y = [2 / 5 * size['height'], 3 / 4 * size['height']]
+    x1 = 97/100 * size['width']
+    y = [2/5 * size['height'], 3/4 * size['height']]
     while pieces > 0:
         print(f'{n}还差{pieces}分。')
         get_click(p+6)
@@ -204,9 +204,9 @@ def video_study():
                 study_time(n, v_time)
                 driver.back()
                 sleep(2)
+        print(f"{n}结束。")
         enter_score_page()
         pieces = int(get_score(p+5)[-1])
-        print(f"{n}结束。")
     print(f'3.{n}任务已完成！\n', "-" * 32)
     sleep(2)
 
@@ -222,9 +222,9 @@ def read_time():
         sleep(2)
         rt = r_score * 2 * 60 + 66
         cycle_click(1, n, rt)
+        print(f"{n}结束。")
         enter_score_page()
         r_score = int(get_score(p+10)[-1])
-        print(f"{n}结束。")
     print(f'4.{n}任务已完成！\n', "-" * 32)
     sleep(2)
 
@@ -242,9 +242,9 @@ def media_time():
         sleep(2)
         mt = m_score * 3 * 60 + 66
         cycle_click(1, n, mt)
+        print(f"{n}结束。")
         enter_score_page()
         m_score = int(get_score(p+15)[-1])
-        print(f"{n}结束。")
     print(f'5.{n}任务已完成！\n', "-" * 32)
     sleep(2)
 
@@ -284,20 +284,21 @@ def star_share_comment():
                 driver.find_element_by_xpath('//android.widget.ImageView[1]'
                                              '[@resource-id="cn.xuexi.android:id/img_gv_item"][@instance="0"]').click()
                 sleep(2)
-                for j in range(2):
-                    driver.back()
-                    sleep(2)
+                driver.back()
+                sleep(2)
+            driver.back()
+            sleep(2)
+        print("收藏、评论、分享结束！")
         enter_score_page()
         star = int(get_score(p + 45)[-1])
         share = int(get_score(p + 50)[-1])
         comment = int(get_score(p + 55)[-1])
         max_score = max(star, share, comment)
-        print("收藏、评论、分享结束！")
     print('6.收藏、评论、分享任务已完成！\n', "-" * 32)
     sleep(2)
 
 
-def auto_study():
+def happy_learning():
     enter_score_page()
     article_read()
     video_study()
@@ -318,13 +319,13 @@ if __name__ == '__main__':
     os.popen(r'E:\00Develop\Nox\bin\NoxConsole.exe launch -name:夜神模拟器')  # 1.更改为你电脑上夜神模拟器的位置
     print('正在打开夜神模拟器，请稍等……')
     sleep(21)
-    connect_devices()
     print('正在打开appium……')
     subprocess.Popen('appium', shell=True)
-    sleep(5)
+    sleep(10)
+    connect_devices()
     print('正在打开driver……')
     driver = webdriver.Remote('http://localhost:4723/wd/hub', init_driver())
     sleep(10)
     close_volume()
-    auto_study()
+    happy_learning()
     print_time('结束时间：')
